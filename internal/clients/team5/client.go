@@ -36,23 +36,29 @@ func init() {
 		&client{
 			// BaseClient:    baseclient.NewClient(id),
 			// forageHistory: ForageHistory{},
-			BaseClient:    baseclient.NewClient(id),
-			forageHistory: ForageHistory{},
-			taxAmount:     0,
-			allocation:    0,
+			BaseClient:      baseclient.NewClient(id),
+			forageHistory:   ForageHistory{},
+			resourceHistory: ResourceHistory{},
+			giftHistory:     GiftHistory{},
+			taxAmount:       0,
+			allocation:      0,
 			config: clientConfig{
 				InitialForageTurns: 3,
 				SkipForage:         3,
 
-				JBThreshold:       100.0,
-				MiddleThreshold:   60.0,
-				ImperialThreshold: 30.0, // surely should be - 100e6? (your right we are so far indebt)
+				JBThreshold:         100.0,
+				MiddleThreshold:     60.0,
+				ImperialThreshold:   30.0, // surely should be - 100e6? (your right we are so far indebt)
+				DyingGiftRequest:    10,
+				ImperialGiftRequest: 5,
+				MiddleGiftRequest:   2,
 			},
 		},
 	)
 }
 
 func (c *client) StartOfTurn() {
+	c.updateResourceHistory(c.resourceHistory)
 	c.Logf("[Debug] - [Start of Turn] Class: %v | Money In the Bank: %v", c.wealth(), c.gameState().ClientInfo.Resources)
 	// c.Logf("[The Pitts]: %v", c.gameState().ClientInfo.Resources)
 	for clientID, status := range c.gameState().ClientLifeStatuses { //if not dead then can start the turn, else no return
@@ -139,11 +145,22 @@ func (c *client) ReceiveForageInfo(forageInfos []shared.ForageShareInfo) {
 	}
 }
 
-//================================================================
-/*  Wealth class */
-//================================================================
-
 // gameState() gets the data from the server about our island
 func (c *client) gameState() gamestate.ClientGameState {
 	return c.BaseClient.ServerReadHandle.GetGameState()
+}
+
+//================================================================
+/*  Resouce History  */
+//================================================================
+
+func (c *client) updateResourceHistory(resourceHistory ResourceHistory) {
+	currentResources := c.gameState().ClientInfo.Resources
+	c.resourceHistory[c.gameState().Turn] = currentResources
+	if c.gameState().Turn >= 2 {
+		amount := c.resourceHistory[c.gameState().Turn-1]
+		c.Logf("[Debug] - Previous round amount: %v", amount)
+	}
+	c.Logf("[Debug] - Current round amount: %v", currentResources)
+
 }

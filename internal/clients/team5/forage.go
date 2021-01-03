@@ -21,7 +21,7 @@ import (
 ================================================================
 	TBA
 	- Share foraging information with others
-	- Look at others foraging information to determine out persuit
+	- Look at others foraging information to determine our persuit
 
 ================================================================
 */
