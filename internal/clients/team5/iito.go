@@ -105,18 +105,18 @@ func (c *client) GetGiftResponses(receivedOffers shared.GiftOfferDict) shared.Gi
 // from the gift session. It is up to you to complete the transactions with the methods
 // that you will implement yourself below. This allows for opinion formation.
 // COMPULSORY, you need to implement this method
-func (c *client) UpdateGiftInfo(receivedResponses shared.GiftResponseDict) {
-	turn := c.gameState().Turn
+// func (c *client) UpdateGiftInfo(receivedResponses shared.GiftResponseDict) {
+// 	turn := c.gameState().Turn
 
-	for island, response := range receivedResponses {
-		newGiftRequest := GiftInfo{
-			requested: c.giftHistory[island].IslandRequest[turn].requested,
-			gifted:    shared.GiftOffer(response.AcceptedAmount),
-			reason:    shared.AcceptReason(response.AcceptedAmount),
-		}
-		c.giftHistory[island].IslandRequest[turn] = newGiftRequest
-	}
-}
+// 	for island, response := range receivedResponses {
+// 		newGiftRequest := GiftInfo{
+// 			requested: c.giftHistory[island].IslandRequest[turn].requested,
+// 			gifted:    shared.GiftOffer(response.AcceptedAmount),
+// 			reason:    shared.AcceptReason(response.AcceptedAmount),
+// 		}
+// 		c.giftHistory[island].IslandRequest[turn] = newGiftRequest
+// 	}
+// }
 
 // SentGift is executed at the end of each turn and notifies clients that
 // their gift was successfully sent, along with the offer details.
