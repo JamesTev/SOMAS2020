@@ -138,14 +138,19 @@ func (c *client) ReceivedGift(received shared.Resources, from shared.ClientID) {
 // they want to fulfill a gift offer they have made.
 // COMPULSORY, you need to implement this method
 func (c *client) DecideGiftAmount(toTeam shared.ClientID, giftOffer shared.Resources) shared.Resources {
-	if c.updateResourceHistory().resourceHistory.amount < c.resourceHistory.currentResources {
+	if c.resourceHistory[c.gameState().Turn-1] < c.ServerReadHandle.GetGameState().ClientInfo.Resources {
 		if c.wealth() >= 2 { //Middle class and JB, fulfill all offers
-
-		} else if c.wealth() == 1 { //When Imperial Student fulfill all offers but Team 3's
-
+			return giftOffer
+		} else if c.wealth() == 1 { //When Imperial Student fulfill all offers but divide Team 3's by 3
+			if toTeam == 2 {
+				return (giftOffer / 3)
+			} else {
+				return giftOffer
+			}
 		} else { //Reject all offers
-
+			return 0
 		}
-		return giftOffer
+	} else { //Reject all offers
+		return 0
 	}
 }
