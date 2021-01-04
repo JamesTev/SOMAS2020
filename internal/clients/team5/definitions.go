@@ -9,9 +9,9 @@ import (
 
 type wealthTier int
 
-// Array to keep tracks of CP requests and allocations history
-type CPRequestHistory []shared.Resources
-type CPAllocationHistory []shared.Resources
+// Slices to keep tracks of CP requests and allocations history
+type cpRequestHistory []shared.Resources
+type cpAllocationHistory []shared.Resources
 
 type clientConfig struct {
 	// Initial non planned foraging
