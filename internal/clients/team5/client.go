@@ -41,17 +41,17 @@ type client struct {
 	config clientConfig
 }
 
-func (c client) wealth() WealthTier {
+func (c client) wealth() wealthTier {
 	cData := c.gameState().ClientInfo
 	switch {
 	case cData.LifeStatus == shared.Critical:
-		return Dying
+		return dying
 	case cData.Resources > c.config.ImperialThreshold && cData.Resources < c.config.MiddleThreshold:
-		return Imperial_Student
+		return imperialStudent
 	case cData.Resources > c.config.JBThreshold:
-		return Jeff_Bezos
+		return jeffBezos
 	default:
-		return Middle_Class
+		return middleClass
 	}
 }
 

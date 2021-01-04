@@ -2,15 +2,16 @@ package team5
 
 import (
 	"fmt"
+
 	"github.com/SOMAS2020/SOMAS2020/internal/common/shared"
 	"github.com/SOMAS2020/SOMAS2020/pkg/miscutils"
 )
 
-type WealthTier int
+type wealthTier int
 
 // Array to keep tracks of CP requests and allocations history
 type CPRequestHistory []shared.Resources
-type CPAllocationHistory []shared.Resources 
+type CPAllocationHistory []shared.Resources
 
 type clientConfig struct {
 	// Initial non planned foraging
@@ -29,32 +30,32 @@ type clientConfig struct {
 	ImperialThreshold shared.Resources
 }
 
-const (  
-	Dying            WealthTier = iota // Sets values = 0  
-	Imperial_Student               // iota sets the folloing values =1  
-	Middle_Class                   // = 2  
-	Jeff_Bezos                     // = 3
+const (
+	dying           wealthTier = iota // Sets values = 0
+	imperialStudent                   // iota sets the folloing values =1
+	middleClass                       // = 2
+	jeffBezos                         // = 3
 )
 
-func (st WealthTier) String() string {  
-	strings := [...]string{"Dying", "Imperial_Student", "Middle_Class", "Jeff_Bezos"}  
-	if st >= 0 && int(st) < len(strings) {    
-		return strings[st]  
-	}  
-	return fmt.Sprintf("Unkown internal state '%v'", int(st))
+func (wt wealthTier) String() string {
+	strings := [...]string{"Dying", "Imperial_Student", "Middle_Class", "Jeff_Bezos"}
+	if wt >= 0 && int(wt) < len(strings) {
+		return strings[wt]
+	}
+	return fmt.Sprintf("Unkown internal state '%v'", int(wt))
 }
 
 // GoString implements GoStringer
-func (wt WealthTier) GoString() string {
+func (wt wealthTier) GoString() string {
 	return wt.String()
 }
 
 // MarshalText implements TextMarshaler
-func (wt WealthTier) MarshalText() ([]byte, error) {
+func (wt wealthTier) MarshalText() ([]byte, error) {
 	return miscutils.MarshalTextForString(wt.String())
 }
 
 // MarshalJSON implements RawMessage
-func (wt WealthTier) MarshalJSON() ([]byte, error) {
+func (wt wealthTier) MarshalJSON() ([]byte, error) {
 	return miscutils.MarshalJSONForString(wt.String())
 }
