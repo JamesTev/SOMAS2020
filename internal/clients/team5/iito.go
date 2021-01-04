@@ -57,7 +57,7 @@ func (c *client) GetGiftRequests() shared.GiftRequestDict {
 			}
 		}
 	}
-	c.Logf("Team 5 is rquesting %v", requests)
+	c.Logf("Team 5 is requesting %v", requests)
 	return requests
 }
 

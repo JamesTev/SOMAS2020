@@ -70,7 +70,7 @@ var (
 	)
 	foragingDeerResourceMultiplier = flag.Float64(
 		"foragingDeerResourceMultiplier",
-		1,
+		10,
 		"scalar value that adjusts returns to be in a range that is commensurate with cost of living, salaries etc.",
 	)
 	foragingDeerDistributionStrategy = flag.Int(
@@ -110,7 +110,7 @@ var (
 	)
 	foragingFishingResourceMultiplier = flag.Float64(
 		"foragingFishingResourceMultiplier",
-		1,
+		5,
 		"scalar value that adjusts returns to be in a range that is commensurate with cost of living, salaries etc.",
 	)
 	foragingFishingDistributionStrategy = flag.Int(
